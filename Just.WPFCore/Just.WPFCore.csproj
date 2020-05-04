@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Authors>JustGentle</Authors>
+    <Product>JustPTE</Product>
+    <PackageId>Just.WPFCore.PTE</PackageId>
+    <Copyright>Copyright © 2020</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.0" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" Version="1.1.0-ci73" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Just.Setting\Just.Setting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.User.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
