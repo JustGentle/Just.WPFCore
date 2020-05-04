@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:log="clr-namespace:Just.Log;assembly=Just.Log"
+        xmlns:log="clr-namespace:Just.Logging;assembly=Just.Logging"
         xmlns:local="clr-namespace:Just.WPFCore"
         mc:Ignorable="d"
         TextElement.Foreground="{StaticResource MaterialDesignBody}"

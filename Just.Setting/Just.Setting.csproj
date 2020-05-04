@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Just.Log\Just.Log.csproj" />
+    <ProjectReference Include="..\Just.Logging\Just.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

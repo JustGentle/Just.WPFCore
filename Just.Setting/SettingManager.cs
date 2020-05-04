@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Just.Log;
+using Just.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

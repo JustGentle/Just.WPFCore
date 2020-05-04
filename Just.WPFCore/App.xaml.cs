@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using Just.Log;
+using Just.Logging;
 using ShowMeTheXAML;
 
 namespace Just.WPFCore

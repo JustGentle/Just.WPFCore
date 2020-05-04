@@ -1,5 +1,5 @@
 ﻿using System;
-using Just.Log;
+using Just.Logging;
 
 namespace Just.WPFCore
 {
