@@ -93,14 +93,14 @@ namespace Just.Setting
         /// <param name="obj">对象</param>
         /// <param name="prop">属性</param>
         /// <returns></returns>
-        public TProp ReadProperty<T, TProp>(T obj, Expression<Func<T, TProp>> prop)
+        public SettingManager ReadProperty<T, TProp>(T obj, Expression<Func<T, TProp>> prop)
         {
             var propInfo = GetPropertyInfo(prop);
             var key = $"{typeof(T).Name}.{propInfo.Name}";
             var value = Read(key, (TProp)propInfo.GetValue(obj));
             //将属性值设置为读取配置
             propInfo.SetValue(obj, value);
-            return value;
+            return this;
         }
         /// <summary>
         /// 设置指定属性配置
@@ -110,11 +110,12 @@ namespace Just.Setting
         /// <param name="obj">对象</param>
         /// <param name="prop">属性</param>
         /// <param name="save">立刻保存</param>
-        public void WriteProperty<T, TProp>(T obj, Expression<Func<T, TProp>> prop, bool save = true)
+        public SettingManager WriteProperty<T, TProp>(T obj, Expression<Func<T, TProp>> prop, bool save = true)
         {
             var propInfo = GetPropertyInfo(prop);
             var key = $"{typeof(T).Name}.{propInfo.Name}";
             Write(key, (TProp)propInfo.GetValue(obj));
+            return this;
         }
         private PropertyInfo GetPropertyInfo<T, TProp>(Expression<Func<T, TProp>> prop)
         {

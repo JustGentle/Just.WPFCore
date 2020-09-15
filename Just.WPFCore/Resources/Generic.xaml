@@ -7,8 +7,8 @@
                          SecondaryColor="Indigo" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/Just.WPFCore;component/Resources/Brush.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -25,7 +25,7 @@
     <Style x:Key="TitleButton"
            TargetType="Border">
         <Setter Property="Padding"
-                Value="10,0" />
+                Value="10,6" />
         <Setter Property="Background"
                 Value="#01F9F9F9" />
         <Setter Property="Cursor"

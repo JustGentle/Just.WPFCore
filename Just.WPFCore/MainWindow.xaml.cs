@@ -27,14 +27,65 @@ namespace Just.WPFCore
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
+
+        #region Prop
+        public string IconPrefix
+        {
+            get { return (string)GetValue(IconPrefixProperty); }
+            set { SetValue(IconPrefixProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IconPrefix.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconPrefixProperty =
+            DependencyProperty.Register("IconPrefix", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
+
+
+        public string IconSuffix
+        {
+            get { return (string)GetValue(IconSuffixProperty); }
+            set { SetValue(IconSuffixProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IconSuffix.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconSuffixProperty =
+            DependencyProperty.Register("IconSuffix", typeof(string), typeof(MainWindow), new PropertyMetadata(string.Empty));
+
+
+        public SolidColorBrush IconDarkBrush
+        {
+            get { return (SolidColorBrush)GetValue(DarkBrushProperty); }
+            set { SetValue(DarkBrushProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for solidColorBrush.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DarkBrushProperty =
+            DependencyProperty.Register("IconDarkBrush", typeof(SolidColorBrush), typeof(MainWindow), new PropertyMetadata(Brushes.Transparent));
+
+        public SolidColorBrush IconLightBrush
+        {
+            get { return (SolidColorBrush)GetValue(IconLightBrushProperty); }
+            set { SetValue(IconLightBrushProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for solidColorBrush.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconLightBrushProperty =
+            DependencyProperty.Register("IconLightBrush", typeof(SolidColorBrush), typeof(MainWindow), new PropertyMetadata(Brushes.Transparent));
+
+        #endregion
+
 
         #region Setting
         public bool DelaySave { get; set; }
 
         public void LoadSettings()
         {
-            SettingManager.Instance.ReadProperty(this, m => m.Title);
+            this.ReadProperty(m => m.Title)
+                .ReadProperty(m => m.IconPrefix)
+                .ReadProperty(m => m.IconSuffix)
+                .ReadProperty(m => m.IconDarkBrush)
+                .ReadProperty(m => m.IconLightBrush);
         }
 
         public void SaveSettings()
@@ -46,7 +97,7 @@ namespace Just.WPFCore
         {
             LoadSettings();
         }
-        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
         }
@@ -128,5 +179,6 @@ namespace Just.WPFCore
         {
             throw new FriendlyException("test");
         }
+
     }
 }

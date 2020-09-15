@@ -12,13 +12,11 @@
         Background="{StaticResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"
         StateChanged="Window_StateChanged"
         Loaded="Window_Loaded"
-        Unloaded="Window_Unloaded"
+        Closing="Window_Closing"
         Height="450"
         Width="800"
         MinWidth="100"
@@ -97,20 +95,20 @@
                             <StackPanel Orientation="Horizontal"
                                         Margin="5">
                                 <Border BorderThickness="0,2,2,2"
-                                        BorderBrush="DeepSkyBlue"
-                                        Background="DeepSkyBlue"
+                                        BorderBrush="{Binding IconDarkBrush}"
+                                        Background="{Binding IconDarkBrush}"
                                         Padding="3,0,0,0"
                                         VerticalAlignment="Center">
-                                    <TextBlock Text="P"
-                                               Foreground="White" />
+                                    <TextBlock Text="{Binding IconPrefix}"
+                                               Foreground="{Binding IconLightBrush}" />
                                 </Border>
                                 <Border BorderThickness="0,2,2,2"
-                                        BorderBrush="DeepSkyBlue"
-                                        Background="White"
+                                        BorderBrush="{Binding IconDarkBrush}"
+                                        Background="{Binding IconLightBrush}"
                                         Padding="0,0,3,0"
                                         VerticalAlignment="Center">
-                                    <TextBlock Text="TE"
-                                               Foreground="DeepSkyBlue"
+                                    <TextBlock Text="{Binding IconSuffix}"
+                                               Foreground="{Binding IconDarkBrush}"
                                                VerticalAlignment="Center" />
                                 </Border>
                                 <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=Title}"
@@ -124,38 +122,31 @@
                             <Border x:Name="MinBorder"
                                     MouseLeftButtonUp="MinMenuItem_MouseUp"
                                     Style="{StaticResource TitleButton}">
-                                <Path x:Name="MinPath"
-                                      Width="10"
-                                      Style="{StaticResource ClosePath}"
-                                      Data="{StaticResource MinPathData}"
-                                      Stroke="{StaticResource MaterialDesignDarkForeground}" />
+                                <materialDesign:PackIcon Kind="WindowMinimize" />
                             </Border>
                             <Border x:Name="WinStateBorder"
                                     MouseLeftButtonUp="WinStateMenuItem_MouseUp"
                                     Style="{StaticResource TitleButton}">
-                                <Path x:Name="WinStatePath"
-                                      Width="10"
-                                      Stroke="{StaticResource MaterialDesignDarkForeground}">
-                                    <Path.Style>
-                                        <Style BasedOn="{StaticResource ClosePath}"
-                                               TargetType="Path">
-                                            <Setter Property="Data"
-                                                    Value="{StaticResource NormalPathData}" />
+                                <materialDesign:PackIcon>
+                                    <materialDesign:PackIcon.Style>
+                                        <Style TargetType="materialDesign:PackIcon">
+                                            <Setter Property="Kind"
+                                                    Value="WindowRestore" />
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}"
                                                              Value="Maximized">
-                                                    <Setter Property="Data"
-                                                            Value="{StaticResource NormalPathData}" />
+                                                    <Setter Property="Kind"
+                                                            Value="WindowRestore" />
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=WindowState}"
                                                              Value="Normal">
-                                                    <Setter Property="Data"
-                                                            Value="{StaticResource MaxPathData}" />
+                                                    <Setter Property="Kind"
+                                                            Value="WindowMaximize" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </Path.Style>
-                                </Path>
+                                    </materialDesign:PackIcon.Style>
+                                </materialDesign:PackIcon>
                             </Border>
                             <Border x:Name="CloseBorder"
                                     MouseLeftButtonUp="CloseMenuItem_MouseUp">
@@ -171,11 +162,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <Path x:Name="ClosePath"
-                                      Width="10"
-                                      Style="{StaticResource ClosePath}"
-                                      Stroke="{StaticResource MaterialDesignDarkForeground}">
-                                </Path>
+                                <materialDesign:PackIcon Kind="WindowClose" />
                             </Border>
                         </StackPanel>
                     </Grid>
@@ -197,7 +184,7 @@
                             </Button>
                         </StackPanel>
                         <!-- 中 -->
-                        <TextBlock Text="Home"
+                        <TextBlock Text="首页"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
