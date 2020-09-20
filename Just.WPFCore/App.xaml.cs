@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using CefSharp;
+using CefSharp.Wpf;
 using Just.Logging;
 using ShowMeTheXAML;
 
@@ -16,17 +18,26 @@ namespace Just.WPFCore
     /// </summary>
     public partial class App : Application
     {
+        public static MessageDialog RootDialog { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
+            RootDialog = new MessageDialog("RootDialog");
+            Logger.MessageDialog = RootDialog;
+
             //UI线程未捕获异常处理事件
-            this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+            //this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
             //Task线程内未捕获异常处理事件
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            //TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             //非UI线程未捕获异常处理事件
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            Logger.ExceptionDialog = new ExceptionDialog("RootDialog");
             XamlDisplay.Init();
+            var cefSettings = new CefSettings
+            {
+                Locale = "zh-CN",
+                UserAgent = Consts.DEFAULT_USER_AGENT
+            };
+            Cef.Initialize(cefSettings);
             base.OnStartup(e);
         }
 
@@ -83,9 +94,9 @@ namespace Just.WPFCore
 
         private void ShutdownWhenNoMainWindow()
         {
-            if (MainWindow.Visibility != Visibility.Visible)
+            if (MainWindow == null || MainWindow.Visibility != Visibility.Visible)
             {
-                Application.Current.Shutdown();
+                Current.Shutdown();
             }
         }
     }

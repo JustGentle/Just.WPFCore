@@ -40,31 +40,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ClosePath"
-           TargetType="Path">
-        <Setter Property="Margin"
-                Value="3" />
-        <Setter Property="Stretch"
-                Value="Uniform" />
-        <Setter Property="StrokeStartLineCap"
-                Value="Round" />
-        <Setter Property="StrokeEndLineCap"
-                Value="Round" />
-        <Setter Property="StrokeThickness"
-                Value="1" />
-        <Setter Property="Stroke"
-                Value="Black" />
-        <Setter Property="Data"
-                Value="{DynamicResource ClosePathData}" />
-    </Style>
-    <PathGeometry x:Key="ClosePathData"
-                  Figures="M0,0 L1,1 M0,1 L1,0" />
-    <PathGeometry x:Key="MinPathData"
-                  Figures="M0,0 1,0" />
-    <PathGeometry x:Key="MaxPathData"
-                  Figures="M0,0 1,0 1,1 0,1 0,0" />
-    <PathGeometry x:Key="NormalPathData"
-                  Figures="M0,4 10,4 10,14 0,14 0,4 M4,4 4,0 14,0 14,10 10,10" />
 
     <Style x:Key="JustMDIconDarkActionButton"
         TargetType="Button"

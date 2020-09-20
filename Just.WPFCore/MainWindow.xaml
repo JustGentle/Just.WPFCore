@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:g="clr-namespace:System.Globalization;assembly=System.Runtime"
         xmlns:log="clr-namespace:Just.Logging;assembly=Just.Logging"
         xmlns:local="clr-namespace:Just.WPFCore"
+        xmlns:EShop="clr-namespace:Just.WPFCore.EShop"
         mc:Ignorable="d"
         TextElement.Foreground="{StaticResource MaterialDesignBody}"
         Background="{StaticResource MaterialDesignPaper}"
@@ -17,7 +19,7 @@
         StateChanged="Window_StateChanged"
         Loaded="Window_Loaded"
         Closing="Window_Closing"
-        Height="450"
+        Height="600"
         Width="800"
         MinWidth="100"
         MinHeight="50">
@@ -36,28 +38,70 @@
         </Style>
     </Window.Style>
     <Window.Resources>
-        <!-- 公共错误弹框 -->
+        <!-- 主窗口信息弹框 -->
         <DataTemplate DataType="{x:Type log:FriendlyException}">
-            <StackPanel Margin="16">
-                <TextBlock Foreground="{StaticResource Orange500}">Warn</TextBlock>
-                <TextBlock Margin="0 8 0 0"
-                           Text="{Binding Message}" />
-                <Button  Margin="0 8 0 0"
-                         IsDefault="True"
-                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                         Style="{DynamicResource MaterialDesignFlatButton}">Close</Button>
-            </StackPanel>
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Foreground="{StaticResource Orange500}"
+                           Style="{DynamicResource MaterialDesignSubtitle1TextBlock}">警告</TextBlock>
+                <ScrollViewer Grid.Row="1"
+                              Margin="0 8 0 0">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding Message}" />
+                </ScrollViewer>
+                <Button Grid.Row="2"
+                        Margin="0 8 0 0"
+                        IsDefault="True"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Style="{DynamicResource MaterialDesignFlatButton}">确定</Button>
+            </Grid>
         </DataTemplate>
         <DataTemplate DataType="{x:Type system:Exception}">
-            <StackPanel Margin="16">
-                <TextBlock Foreground="{StaticResource Red500}">Error</TextBlock>
-                <TextBlock Margin="0 8 0 0"
-                           Text="{Binding Message}" />
-                <Button  Margin="0 8 0 0"
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Foreground="{StaticResource Red500}"
+                           Style="{DynamicResource MaterialDesignSubtitle1TextBlock}">错误</TextBlock>
+                <ScrollViewer Grid.Row="1"
+                              Margin="0 8 0 0">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding Message}" />
+                </ScrollViewer>
+                <Button Grid.Row="2"
+                        Margin="0 8 0 0"
+                        IsDefault="True"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Style="{DynamicResource MaterialDesignFlatButton}">确定</Button>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type g:StringInfo}">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Style="{DynamicResource MaterialDesignSubtitle1TextBlock}">提示</TextBlock>
+                <ScrollViewer Grid.Row="1"
+                              Margin="0 8 0 0">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding String}" />
+                </ScrollViewer>
+                <Button Grid.Row="2" Margin="0 8 0 0"
                          IsDefault="True"
                          Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                         Style="{DynamicResource MaterialDesignFlatButton}">Close</Button>
-            </StackPanel>
+                         Style="{DynamicResource MaterialDesignFlatButton}">确定</Button>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
     <Border BorderThickness="2"
@@ -219,7 +263,9 @@
                     </Grid>
                 </materialDesign:ColorZone>
                 <!-- 内容 -->
-                <ContentControl Grid.Row="2" />
+                <ContentControl Grid.Row="2" Margin="10">
+                    <EShop:CrawlCtrl />
+                </ContentControl>
                 <!-- 底部 -->
                 <materialDesign:ColorZone Grid.Row="3"
                                           Mode="Light"
@@ -246,6 +292,7 @@
                     </Grid>
                 </materialDesign:ColorZone>
 
+                <!-- 提示 -->
                 <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}"
                                          x:Name="MainSnackbar"
                                          Grid.Row="3" />

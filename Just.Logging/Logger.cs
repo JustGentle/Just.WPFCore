@@ -13,7 +13,7 @@ namespace Just.Logging
         public const string CONFIG = "log4net.config";
         public const string LOGGER = "FileLogger";
         public static ILog Instance { get; private set; }
-        public static IExceptionDialog ExceptionDialog { get; set; }
+        public static IMessageDialog MessageDialog { get; set; }
         static Logger()
         {
             var logRepository = LogManager.CreateRepository(REPOSITORY);
@@ -87,7 +87,7 @@ namespace Just.Logging
         {
             Instance.Debug(GetLogMethodInfo() + msg, ex);
             if (show)
-                ExceptionDialog?.Show(msg, ex);
+                MessageDialog?.Show(msg, ex);
         }
         /// <summary>
         /// 全局信息日志纪录入口
@@ -97,7 +97,7 @@ namespace Just.Logging
         {
             Instance.Info(GetLogMethodInfo() + msg, ex);
             if (show)
-                ExceptionDialog?.Show(msg, ex);
+                MessageDialog?.Show(msg, ex);
         }
         /// <summary>
         /// 全局警告日志纪录入口
@@ -107,7 +107,7 @@ namespace Just.Logging
         {
             Instance.Warn(GetLogMethodInfo() + msg, ex);
             if (show)
-                ExceptionDialog?.Show(msg, ex);
+                MessageDialog?.Show(msg, ex);
         }
         /// <summary>
         /// 全局异常日志纪录入口
@@ -118,7 +118,7 @@ namespace Just.Logging
         {
             Instance.Error(GetLogMethodInfo() + msg, ex);
             if (show)
-                ExceptionDialog?.Show(msg, ex);
+                MessageDialog?.Show(msg, ex);
         }
         /// <summary>
         /// 全局致命错误日志纪录入口
@@ -129,7 +129,7 @@ namespace Just.Logging
         {
             Instance.Fatal(GetLogMethodInfo() + msg, ex);
             if (show)
-                ExceptionDialog?.Show(msg, ex);
+                MessageDialog?.Show(msg, ex);
         }
     }
 }
