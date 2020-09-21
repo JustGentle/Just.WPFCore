@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Command;
 using Just.Logging;
 using Just.WPFCore.EShop.CefSharpHandler;
 using Just.WPFCore.EShop.Taobao;
+using Newtonsoft.Json.Linq;
 
 namespace Just.WPFCore.EShop.ViewModel
 {
@@ -89,7 +90,27 @@ namespace Just.WPFCore.EShop.ViewModel
             {
                 Keywork = "连衣裙",
                 PageIndex = 2
-            }).ContinueWith(result => App.RootDialog.Show(result.Result));
+            }).ContinueWith(task => App.RootDialog.Show(string.Join(',', GetSearchData(task.Result).Select(a => a.raw_title))));
+        }
+        private IEnumerable<Auction> GetSearchData(string html)
+        {
+            var json = System.Text.RegularExpressions.Regex.Match(html, "(?<=g_page_config = ).+(?=;)").Value;
+            if (string.IsNullOrEmpty(json))
+            {
+                Logger.Warn(html, new FriendlyException("搜索失败"));
+            }
+            try
+            {
+                var obj = JObject.Parse(json);
+                var items = obj["mods"]["itemlist"]["data"]["auctions"] as JArray;
+                var auctions = items.Select(i=>i.ToObject<Auction>());
+                return auctions;
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn(json, new FriendlyException("找不到商品数据", ex));
+            }
+            return Enumerable.Empty<Auction>();
         }
     }
 }
